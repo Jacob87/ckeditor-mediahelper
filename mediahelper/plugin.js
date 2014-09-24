@@ -110,36 +110,25 @@ CKEDITOR.plugins.add( 'mediahelper', {
                             var width = this.getValueOf('frame', 'width') || 640,
                                 height = this.getValueOf('frame', 'height') || 360,
                                 autoplay = this.getValueOf('frame', 'autoplay'),
-                                type = null,
+                                videoId = null,
                                 attributes = [];
 
-                            // Find type
-                            window.wat = url;
                             // Youtube
-                            if ( url.match(/.*youtu.*/i) ) {
-                                type = 'Youtube';
+                            videoId = url.match(/(\.be\/|v[=\/])([\w\-]{11,})/i);
+                            if ( videoId ) {
+                                url = '//www.youtube.com/embed/' + videoId[2];
+                                if (autoplay) {
+                                    attributes.push('autoplay=1');
+                                }
                             }
 
                             // Vimeo
-                            else if ( url.match(/.*vimeo.*/i) ) {
-                                type = 'Vimeo';
-                            }
-
-                            switch (type) {
-                                default:
-                                case 'Youtube':
-                                    url = '//www.youtube.com/embed/cqBKMGuZC6I';
-                                    if (autoplay) {
-                                        attributes.push('autoplay=1');
-                                    }
-                                    break;
-
-                                case 'Vimeo':
-                                    url = '//player.vimeo.com/video/106839392';
-                                    if (autoplay) {
-                                        attributes.push('autoplay=1');
-                                    }
-                                    break;
+                            videoId = url.match(/vimeo\.com(\/video|\/channels\/.*?)?\/(\d+)/i);
+                            if ( videoId ) {
+                                url = '//player.vimeo.com/video/' + videoId[2];
+                                if (autoplay) {
+                                    attributes.push('autoplay=1');
+                                }
                             }
 
                             // Create element
@@ -155,7 +144,7 @@ CKEDITOR.plugins.add( 'mediahelper', {
 
                         // Could not determine type
                         else {
-                            alert('Input is not valid');
+                            alert('No URL or embed code was given');
                             return false;
                         }
 
