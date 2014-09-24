@@ -1,3 +1,13 @@
+/**
+*   This addon for CKEditor will enable the user to add (responsive) media elements.
+*   The engine within this addon has knowledge of Youtube and Vimeo specific embedding, but is also lenient
+*   towards custom embedding.
+*
+*   @author Jacob Overgaard <http://jovergaard.me>
+*   @version 0.1.0
+*   @updated 2014-09-24
+*/
+
 CKEDITOR.plugins.add( 'mediahelper', {
 
     icons: 'mediahelper',
