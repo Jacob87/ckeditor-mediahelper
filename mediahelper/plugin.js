@@ -88,21 +88,23 @@ CKEDITOR.plugins.add( 'mediahelper', {
 
                     else {
 
-                        var contentProps = {
-                            styles: {
+                        var contentProps = {};
+
+                        if (responsive) {
+                            contentProps.styles = {
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
                                 width: '100%',
                                 height: '100%'
-                            }
-                        };
+                            };
+                        }
 
                         // If embedCode is set, use that in an empty div
                         if (embedCode) {
                             embedElementContent = editor.document.createElement('div', contentProps);
                             embedElementContent.setHtml(embedCode);
-                        } 
+                        }
 
                         // Else check value of url fields
                         else if (url) {
@@ -139,6 +141,7 @@ CKEDITOR.plugins.add( 'mediahelper', {
                                 frameborder: 0,
                                 allowfullscreen: ''
                             };
+
                             embedElementContent = editor.document.createElement('iframe', contentProps);
                         }
 
@@ -171,6 +174,7 @@ CKEDITOR.plugins.add( 'mediahelper', {
 
                         // Else set embed element to content
                         else {
+                            embedElementContent.addClass( 'media-element' );
                             embedElement = embedElementContent;
                         }
 
@@ -185,11 +189,13 @@ CKEDITOR.plugins.add( 'mediahelper', {
             }
 
         });
-
+        
+        // Command to open dialog
         editor.addCommand( 'mediahelper', new CKEDITOR.dialogCommand( 'MediaHelperDialog', {
             allowedContent: 'div[*],iframe[*],object[*]'
         } ) );
 
+        // Toolbar Button
         editor.ui.addButton( 'MediaHelper', {
 
             label: 'Media Helper',
