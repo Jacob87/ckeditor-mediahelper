@@ -12,6 +12,8 @@ CKEDITOR.plugins.add( 'mediahelper', {
 
     icons: 'mediahelper',
 
+    lang: [ 'en', 'da', 'nb', 'sv' ],
+
     init: function( editor ) {
 
         var self = this;
@@ -36,7 +38,7 @@ CKEDITOR.plugins.add( 'mediahelper', {
                             {
                                 type: 'text',
                                 id: 'url',
-                                label: 'Video URL',
+                                label: editor.lang.mediahelper.label.url,
                                 'autofocus': 'autofocus'
                             },
 
@@ -44,21 +46,37 @@ CKEDITOR.plugins.add( 'mediahelper', {
                             {
                                 type: 'text',
                                 id: 'width',
-                                label: 'Width (pixels)'
+                                'default': 640,
+                                label: editor.lang.mediahelper.label.width,
+                                validate: function () {
+                                    var value = parseInt(this.getValue());
+                                    if (!value || value === 0) {
+                                        alert( editor.lang.mediahelper.error.width );
+                                        return false;
+                                    }
+                                }
                             },
 
                             // Height
                             {
                                 type: 'text',
                                 id: 'height',
-                                label: 'Height (pixels)'
+                                'default': 360,
+                                label: editor.lang.mediahelper.label.height,
+                                validate: function () {
+                                    var value = parseInt(this.getValue());
+                                    if (!value || value === 0) {
+                                        alert( editor.lang.mediahelper.error.height );
+                                        return false;
+                                    }
+                                }
                             },
 
                             // Autoplay
                             {
                                 type: 'checkbox',
                                 id: 'autoplay',
-                                label: 'Autoplay mode'
+                                label: editor.lang.mediahelper.label.autoplay
                             },
 
                             // Responsive
@@ -66,14 +84,14 @@ CKEDITOR.plugins.add( 'mediahelper', {
                                 type: 'checkbox',
                                 id: 'responsive',
                                 'default': 'checked',
-                                label: 'Responsive mode'
+                                label: editor.lang.mediahelper.label.responsive
                             },
 
                             // Embed code
                             {
                                 type: 'textarea',
                                 id: 'embedcode',
-                                label: 'Paste embed code (will ignore other settings)'
+                                label: editor.lang.mediahelper.label.embedcode
                             }
 
                         // End frame elements
@@ -157,7 +175,7 @@ CKEDITOR.plugins.add( 'mediahelper', {
 
                         // Could not determine type
                         else {
-                            alert('No URL or embed code was given');
+                            alert(editor.lang.mediahelper.error.input);
                             return false;
                         }
 
@@ -202,7 +220,7 @@ CKEDITOR.plugins.add( 'mediahelper', {
         
         // Command to open dialog
         editor.addCommand( 'mediahelper', new CKEDITOR.dialogCommand( 'MediaHelperDialog', {
-            allowedContent: 'div[*],iframe[*],object[*]'
+            allowedContent: 'div[*],iframe[!width,!height,!src,!frameborder,!allowfullscreen],object[*]'
         } ) );
 
         // Toolbar Button
