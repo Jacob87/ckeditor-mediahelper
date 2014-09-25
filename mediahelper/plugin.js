@@ -4,8 +4,8 @@
 *   towards custom embedding.
 *
 *   @author Jacob Overgaard <http://jovergaard.me>
-*   @version 0.1.0
-*   @updated 2014-09-24
+*   @version 0.2.1
+*   @updated 2014-09-25
 */
 
 CKEDITOR.plugins.add( 'mediahelper', {
