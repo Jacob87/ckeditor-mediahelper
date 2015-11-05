@@ -1,6 +1,6 @@
 CKEDITOR.plugins.setLang('mediahelper', 'en', {
 	label: {
-		url: 'Video URL',
+		url: 'Video URL (Youtube, Vimeo)',
 		width: 'Width (pixels)',
 		height: 'Height (pixels)',
 		autoplay: 'Autoplay mode',
